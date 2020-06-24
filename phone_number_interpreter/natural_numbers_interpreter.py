@@ -264,5 +264,4 @@ class NaturalNumbersInterpreter(object):
         :return:
         """
         possible_interpretations = self.create_possible_interpretations(text_number)
-        print(possible_interpretations)
         return self.process_possible_interpretations(possible_interpretations)
