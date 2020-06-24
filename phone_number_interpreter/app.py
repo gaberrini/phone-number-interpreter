@@ -33,6 +33,7 @@ def run():
 
     input_number = ''.join(input_number.split())
 
+    print('Input number: {}'.format(input_number))
     interpreter = NaturalNumbersInterpreter()
     possible_interpretations = interpreter.get_all_possible_interpretations_of_number(input_number)
     print_phones_interpretations(possible_interpretations, GreekPhoneNumberValidator)
