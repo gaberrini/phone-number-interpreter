@@ -3,8 +3,8 @@ import unittest
 from phone_number_interpreter.phone_number_validator import GreekPhoneNumberValidator
 
 
-class TestNaturalNumbersInterpreter(unittest.TestCase):
-    """Test NaturalNumbersInterpreter module"""
+class TestGreekPhoneNumberValidator(unittest.TestCase):
+    """Test GreekPhoneNumberValidator module"""
 
     def test_greek_phone_number_validator_true_cases(self):
         """
