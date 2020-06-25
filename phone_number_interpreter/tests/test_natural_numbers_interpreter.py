@@ -4,7 +4,7 @@ from phone_number_interpreter.natural_numbers_interpreter import NaturalNumbersI
 
 
 class TestNaturalNumbersInterpreter(unittest.TestCase):
-    """NaturalNumbersInterpreter module tests"""
+    """natural_numbers_interpreter module tests"""
 
     def test_create_possible_interpretations(self):
         """

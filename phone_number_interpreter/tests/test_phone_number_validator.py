@@ -4,7 +4,7 @@ from phone_number_interpreter.phone_number_validator import GreekPhoneNumberVali
 
 
 class TestGreekPhoneNumberValidator(unittest.TestCase):
-    """Test GreekPhoneNumberValidator module"""
+    """Test GreekPhoneNumberValidator"""
 
     def test_greek_phone_number_validator_true_cases(self):
         """
