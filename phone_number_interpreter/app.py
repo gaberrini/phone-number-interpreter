@@ -1,5 +1,9 @@
 """
 Module with the logic to print the number interpretations the validation if they are a phone number
+
+Attributes:
+    app.print_interpretations_with_phone_validation(interpretations: Set[str], validator: Type[PhoneValidator])
+    app.run()
 """
 import sys
 from typing import Set, Type
