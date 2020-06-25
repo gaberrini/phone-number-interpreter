@@ -1,3 +1,6 @@
+"""
+Module with the logic to print the number interpretations the validation if they are a phone number
+"""
 import sys
 from typing import Set, Type
 from phone_number_interpreter.natural_numbers_interpreter import NaturalNumbersInterpreter
@@ -27,12 +30,19 @@ def print_interpretations_with_phone_validation(interpretations: Set[str], valid
         print('Interpretation {}: {} [phone number: {}]'.format(index+1, interpretation, is_valid_phone_number))
 
 
-def run():
+def run() -> None:
+    """
+    Start point of application.
+
+    Number to process can be provided by argv, if not provided it will be asked as user input.
+
+    :return:
+    """
     input_number = sys.argv[1] if len(sys.argv) > 1 else input('Please insert the number:\n')
 
     input_number = ''.join(input_number.split())
 
     print('Input number: {}'.format(input_number))
-    interpreter = NaturalNumbersInterpreter()
-    possible_interpretations = interpreter.get_all_possible_interpretations_of_number(input_number)
+
+    possible_interpretations = NaturalNumbersInterpreter().get_all_possible_interpretations_of_number(input_number)
     print_interpretations_with_phone_validation(possible_interpretations, GreekPhoneNumberValidator)
