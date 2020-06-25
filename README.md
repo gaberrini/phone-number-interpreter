@@ -1,4 +1,16 @@
-# Phone Number Interpreter
+# Index
+
+* [Introduction](#introduction)
+    * [Natural Number Ambiguities](#natural-number-ambiguities)
+    * [Phone Numbers Validation](#phone-number-validation)
+* [Requirements](#requirements)
+    * [Docker requirements](#docker-requirements)
+    * [Local requirements](#local-requirements)
+* [Usage instructions](#usage-instructions)
+    * [Docker execution](#docker-execution)
+    * [Local execution](#local-execution)
+
+# Introduction
 
 This application will process natural numbers verbally obtained in the English language, and validate if they are a valid Greek phone number.
 
@@ -61,3 +73,70 @@ Interpretation n: 00306972413502 [phone number: VALID]
 ...
 Interpretation m: 00306097241352[phone number: INVALID]
 ```
+
+# Requirements
+
+You can run the application using [Docker] or from your local machine using [Python 3.8]
+
+## Docker requirements
+
+You can run the application using [Docker]
+
+Requirements:
+ * [Docker]
+
+## Local requirements
+
+You can run the application from your local machine
+
+Requirements:
+* [Python 3.8]
+
+# Usage instructions
+
+## Docker execution
+
+To run the application using [Docker].
+
+First you will need to build the Docker Image with the following command
+
+```
+docker build -t phone-interpreter-app .
+```
+
+Then you can run the application creating a Docker container
+
+You can define the number as an argument when executing the command, if not it will be asked as user input.
+
+When the number is defined as argument, if it contains spaces it needs to be between `" "`
+
+```
+docker run phone-interpreter-app "00306 9 702 4 13 52"
+```
+
+or to define the number as input, you need to add the command options `-i` when creating the container, to allow an interactive session with the container
+
+```
+docker run -i phone-interpreter-app
+```
+
+## Local execution
+
+To run the application from your local machine using [Python 3.8]
+
+You can define the number as an argument when executing the command, if not it will be asked as user input.
+
+When the number is defined as argument, if it contains spaces it needs to be between `" "`
+
+```
+python -m phone_number_interpreter "00306 9 702 4 13 52"
+```
+
+or to provide the number as user input
+
+```
+python -m phone_number_interpreter
+```
+
+[Python 3.8]: https://www.python.org/downloads/
+[Docker]: https://www.docker.com/
