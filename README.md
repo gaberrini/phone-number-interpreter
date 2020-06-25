@@ -6,9 +6,13 @@
 * [Requirements](#requirements)
     * [Docker requirements](#docker-requirements)
     * [Local requirements](#local-requirements)
+    * [Development requirements](#development-requirements)
 * [Usage instructions](#usage-instructions)
     * [Docker execution](#docker-execution)
     * [Local execution](#local-execution)
+    * [Development tools](#development-tools)
+        * [Run unittests and test coverage](#run-unittests-and-test-coverage)
+        * [Pylint execution](#pylint-execution)
 
 # Introduction
 
@@ -92,6 +96,22 @@ You can run the application from your local machine
 Requirements:
 * [Python 3.8]
 
+## Development requirements
+
+To use the development tools you have an extra requirement
+
+Requirements:
+* [Python 3.8]
+* [Pipenv]
+
+To install the development requirements on your local machine you need to run the following command
+
+```
+pipenv install --dev
+```
+
+This will install the dev dependencies defined in the `Pipfile`
+
 # Usage instructions
 
 ## Docker execution
@@ -138,5 +158,55 @@ or to provide the number as user input
 python -m phone_number_interpreter
 ```
 
+## Development tools
+
+During development there are two tools that you can use [Pylint] and [Coverage]
+
+To use the development tools on your local machine, you first need to install the [Development requirements](#development-requirements)
+
+### Run unittests and test coverage
+
+To run the [unittests] you just need to have installed [Python 3.8], but to get the tests coverage you will need to install the [Development requirements](#development-requirements)
+
+To run the tests without getting the [Coverage] you need to run the following command:
+
+```
+python -m unittest --verbose
+```
+
+To generate the tests [Coverage] you need to run the following command
+
+```
+pipenv run python -m coverage run -m unittest --verbose
+```
+
+The last command will run the tests, show the results and create a `.coverage` file with the tests [Coverage] result.
+
+To see the results in the terminal you can run the following command
+
+```
+pipenv run python -m coverage report
+```
+
+You can also create a `HTML report` running the following command
+
+```
+pipenv run python -m coverage html
+```
+
+After running it a `HTML report` will be created, you can find it in the following path `./htmlcov/index.html`
+
+### Pylint execution
+
+To run [Pylint] you need to run the following command
+
+```
+pipenv run python -m pylint phone_number_interpreter
+```
+
 [Python 3.8]: https://www.python.org/downloads/
 [Docker]: https://www.docker.com/
+[Pipenv]: https://pipenv.pypa.io/en/latest/install/#installing-pipenv
+[Coverage]: https://coverage.readthedocs.io/en/coverage-5.1/
+[Pylint]: https://www.pylint.org/
+[unittests]: https://docs.python.org/3/library/unittest.html
