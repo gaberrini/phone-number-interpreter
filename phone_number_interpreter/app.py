@@ -42,7 +42,7 @@ def run() -> None:
 
     :return:
     """
-    input_number = sys.argv[1] if len(sys.argv) > 1 else input('Please insert the number:\n')
+    input_number = sys.argv[1] if len(sys.argv) > 1 else input('Please insert the number: ')
 
     input_number = ''.join(input_number.split())
 
