@@ -234,6 +234,7 @@ class NaturalNumbersInterpreter(object):
         :param text_number:
         :param last_index: Last index of the text_number to process, if not provided all the number is processed
 
+        :raises ValueError: if `text_number` contains non numeric characters
         :return: List of PossibleInterpretations
         """
         # Init values
@@ -282,6 +283,7 @@ class NaturalNumbersInterpreter(object):
         Create all the possible interpretations of a number and return them in a Set of strings
 
         :param text_number:
+        :raises ValueError: if `text_number` contains non numeric characters
         :return:
         """
         possible_interpretations = self.create_possible_interpretations(text_number)

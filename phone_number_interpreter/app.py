@@ -48,5 +48,8 @@ def run() -> None:
 
     print('Input number: {}'.format(input_number))
 
-    possible_interpretations = NaturalNumbersInterpreter().get_all_possible_interpretations_of_number(input_number)
-    print_interpretations_with_phone_validation(possible_interpretations, GreekPhoneNumberValidator)
+    try:
+        possible_interpretations = NaturalNumbersInterpreter().get_all_possible_interpretations_of_number(input_number)
+        print_interpretations_with_phone_validation(possible_interpretations, GreekPhoneNumberValidator)
+    except ValueError:
+        print('Invalid input number "{}", it must contain only numbers'.format(input_number))
