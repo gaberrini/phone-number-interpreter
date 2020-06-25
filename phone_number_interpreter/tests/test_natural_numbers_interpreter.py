@@ -56,3 +56,13 @@ class TestNaturalNumbersInterpreter(unittest.TestCase):
 
         # Then
         assert result == expected_output
+
+    def test_get_all_possible_interpretations_of_number(self):
+        # Data
+        input_number = '2336'
+        expected_output = {'2336', '23306', '20336', '203306', '23036'}
+
+        # When
+        result = NaturalNumbersInterpreter().get_all_possible_interpretations_of_number(input_number)
+
+        assert result == expected_output
