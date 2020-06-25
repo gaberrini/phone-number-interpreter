@@ -8,24 +8,23 @@ VALID = 'VALID'
 INVALID = 'INVALID'
 
 
-def print_phones_interpretations(interpretations: Set[str], validator: Type[PhoneValidator]) -> None:
+def print_interpretations_with_phone_validation(interpretations: Set[str], validator: Type[PhoneValidator]) -> None:
     """
-    Go throw a list of numbers as strings and validate if they are a valid phone number
+    Go throw a list of numbers as strings and validate if they are a valid phone number, and print the following:
 
-    Print:
-
-    Interpretation 1: xxxxxxxxxxx [phone number: INVALID|VALID]
+    Interpretation 1: xxxxxxxx [phone number: INVALID]
     ....
-    Interpretation m: xxxxxx [phone number: INVALID|VALID]
-
+    Interpretation n: xxxxxxxxx [phone number: VALID]
+    ....
+    Interpretation m: xxxxxx [phone number: INVALID]
 
     :param interpretations:
     :param validator: PhoneValidator
     :return:
     """
     for (index, interpretation) in enumerate(interpretations):
-        is_valid = VALID if validator.validate(interpretation) else INVALID
-        print('Interpretation {}: {} [phone number: {}]'.format(index+1, interpretation, is_valid))
+        is_valid_phone_number = VALID if validator.validate(interpretation) else INVALID
+        print('Interpretation {}: {} [phone number: {}]'.format(index+1, interpretation, is_valid_phone_number))
 
 
 def run():
@@ -36,4 +35,4 @@ def run():
     print('Input number: {}'.format(input_number))
     interpreter = NaturalNumbersInterpreter()
     possible_interpretations = interpreter.get_all_possible_interpretations_of_number(input_number)
-    print_phones_interpretations(possible_interpretations, GreekPhoneNumberValidator)
+    print_interpretations_with_phone_validation(possible_interpretations, GreekPhoneNumberValidator)

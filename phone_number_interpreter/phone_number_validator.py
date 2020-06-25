@@ -25,18 +25,18 @@ class PhoneValidator(metaclass=ABCMeta):
 
 class GreekPhoneNumberValidator(PhoneValidator):
     """
-    Implementation to of PhoneValidator for Greek phone numbers
+    Implementation of PhoneValidator for Greek phone numbers
 
     Attributes:
-        GreekPhoneNumberValidator.GREEK_PHONE_LEN_10_START_1 (str): Possible start of a Greek phone number of 10 digits
-        GreekPhoneNumberValidator.GREEK_PHONE_LEN_10_START_2 (str): Possible start of a Greek phone number of 10 digits
-        GreekPhoneNumberValidator.GREEK_PHONE_LEN_14_START_1 (str): Possible start of a Greek phone number of 14 digits
-        GreekPhoneNumberValidator.GREEK_PHONE_LEN_14_START_2 (str): Possible start of a Greek phone number of 14 digits
+        GreekPhoneNumberValidator.VALID_PHONES_LEN (List[int]): Valid lengths of Greek phone numbers
+        GreekPhoneNumberValidator.VALID_PHONES_START (Dict[int, List[str]]): Dict with valid start of
+         Greek phone numbers, the key will be the length and the value contain a List with valid starts for that length
     """
-    GREEK_PHONE_LEN_10_START_1 = '2'
-    GREEK_PHONE_LEN_10_START_2 = '69'
-    GREEK_PHONE_LEN_14_START_1 = '00302'
-    GREEK_PHONE_LEN_14_START_2 = '003069'
+    VALID_PHONES_LEN = [10, 14]
+    VALID_PHONES_START = {
+        10: ['2', '69'],
+        14: ['00302', '003069']
+    }
 
     @staticmethod
     def validate(text_number: str) -> bool:
@@ -47,12 +47,8 @@ class GreekPhoneNumberValidator(PhoneValidator):
         :return: True if it is, False otherwise
         """
         len_num = len(text_number)
-        if len_num == 10:
-            if text_number.startswith(GreekPhoneNumberValidator.GREEK_PHONE_LEN_10_START_1) or text_number.startswith(
-                    GreekPhoneNumberValidator.GREEK_PHONE_LEN_10_START_2):
-                return True
-        if len_num == 14:
-            if text_number.startswith(GreekPhoneNumberValidator.GREEK_PHONE_LEN_14_START_1) or text_number.startswith(
-                    GreekPhoneNumberValidator.GREEK_PHONE_LEN_14_START_2):
-                return True
+        if len_num in GreekPhoneNumberValidator.VALID_PHONES_LEN:
+            for valid_start in GreekPhoneNumberValidator.VALID_PHONES_START[len_num]:
+                if text_number.startswith(valid_start):
+                    return True
         return False

@@ -1,6 +1,6 @@
 """
-Module with the logic to detect all the possible ambiguities of a spelled number in english,
-    and generate all the possible interpretations of the number.
+Module with the logic to detect all the possible interpretations of a spelled number in english,
+    taking in count all the possible ambiguities of the english language.
 
 For example, if someone says 'twenty five' this could be transcribed as '25' or '205'.
     ‘75’, may be: ‘705’ or ‘75’ Etc..
@@ -18,9 +18,21 @@ from phone_number_interpreter.natural_numbers_ambiguities import LANGUAGE_AMBIGU
 @dataclass
 class PossibleInterpretation:
     """
-    Class to represent all the elements of possible phone interpretations and the indexes of the considered ambiguities
-    The elements are a list of numbers as string that will create the phone number, the elements could be possible
-    language ambiguities.
+    Representation of a number, split in elements.
+
+    The elements are numbers as string, some of them can be possible ambiguities in english language.
+
+    The indexes of the elements that are ambiguities are going to be stored in a set to detect exclusive ambiguities.
+    To determinate the index we are considering the join of all the elements.
+
+    Example:
+        $ self.interpretation_elements=['2', '33', '6']
+        $ self.ambiguity_indexes={1, 2}
+    If we join all the elements we get '2336', begin '33' an ambiguity, they are in the indexes {1, 2}
+
+    Attributes:
+        interpretation_elements: List of numbers as string, with possible ambiguities
+        ambiguity_indexes: Index of possibles ambiguities (considering join of interpretation_elements)
     """
     interpretation_elements: List[str]
     ambiguity_indexes = Set[int]
@@ -76,7 +88,8 @@ class NaturalNumbersInterpreter(object):
     @staticmethod
     def generate_interpretations(possible_interpretation: PossibleInterpretation) -> Set[str]:
         """
-        Generate possible all possible interpretations of a PossibleInterpretation
+        Generate all possible interpretations of a PossibleInterpretation, making all possible permutations of the
+            possible ambiguities in the interpretation.
 
         :param possible_interpretation:
         :return: Set of possible interpretations
@@ -87,6 +100,7 @@ class NaturalNumbersInterpreter(object):
         except KeyError:
             pass
 
+        # Todo: time performance, creating strings instead of lists of elements and joining at the end
         for element in possible_interpretation.interpretation_elements[1:]:
             for interpretation_n in range(len(_interpretations)):
                 # If the interpretation element have an ambiguity we create all possible interpretations with the
@@ -96,6 +110,7 @@ class NaturalNumbersInterpreter(object):
                     new_interpretation = _interpretations[interpretation_n].copy()
                     new_interpretation.append(ambiguity)
                     _interpretations.append(new_interpretation)
+                # Element is not an ambiguity
                 except KeyError:
                     pass
                 _interpretations[interpretation_n].append(element)
@@ -122,7 +137,7 @@ class NaturalNumbersInterpreter(object):
         """
         Add a simple number to the interpretations elements, when the number is not part of an ambiguity
 
-        We validate if the number has not been included in a previous ambiguity
+        We validate if the number has been included in a previous ambiguity
 
         :param number:
         :param index:
@@ -130,7 +145,7 @@ class NaturalNumbersInterpreter(object):
         :return:
         """
         for possible_interpretation in possible_interpretations:
-            # Add the number to the interpretation elements if it is NOT already included in a ambiguity
+            # Add the number to the interpretation elements if it is NOT already included in an ambiguity
             if not possible_interpretation.index_in_ambiguities(index):
                 possible_interpretation.add_interpretation_element(number)
 
@@ -172,12 +187,13 @@ class NaturalNumbersInterpreter(object):
                 _possible_interpretation.add_ambiguity_element(possible_ambiguity, ambiguity_indexes)
                 exclusive_ambiguity = False
 
-        # If the ambiguity is exclusive with the previous possible interpretation,
-        # we create a new possible interpretation
+        # If the ambiguity is exclusive with all the previous possible interpretations,
+        # we create a new possible interpretation to include this ambiguity
         if exclusive_ambiguity:
             # Todo: enhance performance build previous_possible_interpretations from possible_interpretations?
-            # The previous possible interpretations will not include the new ambiguity
-            # because the `last_index` to create possible interpretations is set to the previous element
+            # previous_possible_interpretations will not include the exclusive ambiguity that conflict with the new
+            # current ambiguity, because the `last_index` to create possible interpretations is set to
+            # not include the elements of the current new ambiguity.
             previous_possible_interpretations = self.create_possible_interpretations(text_number[:start_index],
                                                                                      last_index=start_index)
             for _previous_possible_interpretation in previous_possible_interpretations:
@@ -193,7 +209,10 @@ class NaturalNumbersInterpreter(object):
 
         The number will be process until `last_index`, if not provided all `text_number` will be processed
 
-        To create the list of possible interpretations elements we are considering the exclusive ambiguities.
+        To create the list of elements of a possible interpretation we are considering the exclusive ambiguities.
+
+        This will give us more than one possible interpretation, creating all the possible combinations of exclusive
+         ambiguities.
 
         Explanation of exclusive ambiguities:
 
@@ -217,10 +236,12 @@ class NaturalNumbersInterpreter(object):
 
         :return: List of PossibleInterpretations
         """
+        # Init values
         last_index = last_index if last_index else len(text_number)
         possible_interpretations = [PossibleInterpretation()]
         index = 0
         number = text_number[0]
+
         try:
             for (index, number) in enumerate(text_number[:last_index]):
 
