@@ -8,7 +8,7 @@ Classes:
 from abc import ABCMeta, abstractmethod
 
 
-class PhoneValidator(metaclass=ABCMeta):
+class PhoneValidator(metaclass=ABCMeta):  # pylint: disable=too-few-public-methods
     """Abstract base class for phone number validator classes"""
 
     @staticmethod
@@ -23,7 +23,7 @@ class PhoneValidator(metaclass=ABCMeta):
         raise NotImplementedError('Missing implementation of .validate(text_number: str)')
 
 
-class GreekPhoneNumberValidator(PhoneValidator):
+class GreekPhoneNumberValidator(PhoneValidator):  # pylint: disable=too-few-public-methods
     """
     Implementation of PhoneValidator for Greek phone numbers
 

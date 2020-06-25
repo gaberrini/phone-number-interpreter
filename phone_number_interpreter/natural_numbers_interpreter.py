@@ -79,7 +79,7 @@ class PossibleInterpretation:
         self.interpretation_elements.append(element)
 
 
-class NaturalNumbersInterpreter(object):
+class NaturalNumbersInterpreter:
     """
     Class with the logic to detect the possible ambiguities in a spelled number and generate all the possible
     interpretations of the number
@@ -102,7 +102,8 @@ class NaturalNumbersInterpreter(object):
 
         # Todo: time performance, creating strings instead of lists of elements and joining at the end
         for element in possible_interpretation.interpretation_elements[1:]:
-            for interpretation_n in range(len(_interpretations)):
+            # Using range and len, because the list is being extended in the loop dynamically
+            for interpretation_n in range(len(_interpretations)):  # pylint: disable=consider-using-enumerate
                 # If the interpretation element have an ambiguity we create all possible interpretations with the
                 # ambiguity and without it
                 try:
@@ -258,7 +259,7 @@ class NaturalNumbersInterpreter(object):
                         continue
 
                     # Or continue with 0 + [1-9]
-                    elif text_number[index + 1] == '0' and 1 < int(text_number[index + 2]) < 10:
+                    if text_number[index + 1] == '0' and 1 < int(text_number[index + 2]) < 10:
                         self.add_ambiguity_to_possible_interpretations(text_number,
                                                                        possible_interpretations,
                                                                        start_index=index,

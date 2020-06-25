@@ -4,8 +4,13 @@ from phone_number_interpreter.natural_numbers_interpreter import NaturalNumbersI
 
 
 class TestNaturalNumbersInterpreter(unittest.TestCase):
+    """NaturalNumbersInterpreter module tests"""
 
     def test_create_possible_interpretations(self):
+        """
+        Test create_possible_interpretations
+        :return:
+        """
         # Data
         input_number = '2336'
         expected_output = [
@@ -19,9 +24,13 @@ class TestNaturalNumbersInterpreter(unittest.TestCase):
         result = NaturalNumbersInterpreter().create_possible_interpretations(input_number)
 
         # Then
-        assert result == expected_output
+        self.assertEqual(result, expected_output)
 
     def test_create_possible_interpretations_2(self):
+        """
+        Test create_possible_interpretations
+        :return:
+        """
         # Data
         input_number = '2303600333'
         expected_output = [
@@ -39,9 +48,13 @@ class TestNaturalNumbersInterpreter(unittest.TestCase):
         result = NaturalNumbersInterpreter().create_possible_interpretations(input_number)
 
         # Then
-        assert result == expected_output
+        self.assertEqual(result, expected_output)
 
     def test_create_possible_interpretations_3(self):
+        """
+        Test create_possible_interpretations
+        :return:
+        """
         # Data
         input_number = '2220'
         expected_output = [
@@ -55,9 +68,13 @@ class TestNaturalNumbersInterpreter(unittest.TestCase):
         result = NaturalNumbersInterpreter().create_possible_interpretations(input_number)
 
         # Then
-        assert result == expected_output
+        self.assertEqual(result, expected_output)
 
     def test_get_all_possible_interpretations_of_number(self):
+        """
+        Test get_all_possible_interpretations_of_number
+        :return:
+        """
         # Data
         input_number = '2336'
         expected_output = {'2336', '23306', '20336', '203306', '23036'}
@@ -65,4 +82,4 @@ class TestNaturalNumbersInterpreter(unittest.TestCase):
         # When
         result = NaturalNumbersInterpreter().get_all_possible_interpretations_of_number(input_number)
 
-        assert result == expected_output
+        self.assertEqual(result, expected_output)

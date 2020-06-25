@@ -4,8 +4,13 @@ from phone_number_interpreter.phone_number_validator import GreekPhoneNumberVali
 
 
 class TestNaturalNumbersInterpreter(unittest.TestCase):
+    """Test NaturalNumbersInterpreter module"""
 
     def test_greek_phone_number_validator_true_cases(self):
+        """
+        Test GreekPhoneNumberValidator().validate() for True cases
+        :return:
+        """
         # Data
         test_data = [('00306970241352', True),
                      ('00302970241352', True),
@@ -14,9 +19,13 @@ class TestNaturalNumbersInterpreter(unittest.TestCase):
 
         # When/Then
         for data in test_data:
-            assert data[1] == GreekPhoneNumberValidator().validate(data[0])
+            self.assertEqual(data[1], GreekPhoneNumberValidator().validate(data[0]))
 
     def test_greek_phone_number_validator_false_cases(self):
+        """
+        Test GreekPhoneNumberValidator().validate() for False cases
+        :return:
+        """
         # Data
         test_data = [('00306870241352', False),
                      ('00303970241352', False),
@@ -27,4 +36,4 @@ class TestNaturalNumbersInterpreter(unittest.TestCase):
 
         # When/Then
         for data in test_data:
-            assert data[1] == GreekPhoneNumberValidator().validate(data[0])
+            self.assertEqual(data[1], GreekPhoneNumberValidator().validate(data[0]))
