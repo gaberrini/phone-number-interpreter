@@ -11,6 +11,7 @@
     * [Docker execution](#docker-execution)
     * [Local execution](#local-execution)
     * [Development tools](#development-tools)
+        * [Run unittests from Docker](#run-unittests-from-docker)
         * [Run unittests and test coverage](#run-unittests-and-test-coverage)
         * [Pylint execution](#pylint-execution)
 
@@ -164,6 +165,14 @@ During development there are two tools that you can use [Pylint] and [Coverage]
 
 To use the development tools on your local machine, you first need to install the [Development requirements](#development-requirements)
 
+### Run unittests from Docker
+
+To run the [unittests] from the Docker image, you need to run the following command
+
+```
+docker run phone-interpreter-app tests
+```
+
 ### Run unittests and test coverage
 
 To run the [unittests] you just need to have installed [Python 3.8], but to get the tests coverage you will need to install the [Development requirements](#development-requirements)
@@ -203,6 +212,8 @@ To run [Pylint] you need to run the following command
 ```
 pipenv run python -m pylint phone_number_interpreter
 ```
+
+docker run --entrypoint=python -m unittest --verbose phone-interpreter-app
 
 [Python 3.8]: https://www.python.org/downloads/
 [Docker]: https://www.docker.com/
